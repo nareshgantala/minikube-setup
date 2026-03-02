@@ -3,11 +3,11 @@ kind: Service
 metadata:
   name: web-service
 spec:
-  type: NodePort      # <--- Makes it accessible outside the cluster
+  # type: NodePort      # <--- Makes it accessible outside the cluster
   selector:
     app: web-server   # <--- Must MATCH the labels in your Deployment template!
   ports:
     - protocol: TCP
       port: 80        # The port the SERVICE listens on (Internal)
       targetPort: 80  # The port the POD/CONTAINER listens on
-      nodePort: 30001 # The port on your EC2 machine (External)
+      # nodePort: 30001 # The port on your EC2 machine (External)

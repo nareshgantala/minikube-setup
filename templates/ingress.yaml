@@ -3,18 +3,26 @@ kind: Ingress
 metadata:
   name: main-ingress
   annotations:
-    # This tells K8s to use the Nginx controller we just enabled
-    kubernetes.io/ingress.class: nginx
+    # This is the "Magic" - it strips the /apache from the request
+    # before sending it to the Apache server, so Apache sees it as a request for "/"
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
-  ingressClassName: nginx  
+  ingressClassName: nginx
   rules:
-  - host: kubo-lab.test         # <--- Your "Fake" Domain
+  - host: kubo-lab.test
     http:
       paths:
-      - path: /
+      - path: /apache            # <--- Path A
         pathType: Prefix
         backend:
           service:
-            name: web-service   # <--- Must match your Service name
+            name: apache-service
             port:
-              number: 80        # <--- The SERVICE port (Internal)
+              number: 80
+      - path: /                  # <--- Path B (Catch-all)
+        pathType: Prefix
+        backend:
+          service:
+            name: web-service
+            port:
+              number: 80
