@@ -69,4 +69,10 @@ resource "aws_instance" "minikube" {
   tags = {
     Name = "minikube"
   }
+  root_block_device {
+    volume_size = 30                # Size in GiB
+    volume_type = "gp3"             # General Purpose SSD
+    delete_on_termination = true    # Volume is deleted when the instance terminates
+    encrypted = true                # Encrypt the volume
+  }
 }

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: web-pod
+  labels:
+    app: frontend
+spec:
+  # 2026 Security Tip: Use User Namespaces for isolation
+  # hostUsers: false  # (If your kernel supports it, this isolates the pod root from host root)
+  containers:
+  - name: nginx-container
+    image: nginx:1.27  # Always use specific versions, never 'latest' in production
+    ports:
+    - containerPort: 80

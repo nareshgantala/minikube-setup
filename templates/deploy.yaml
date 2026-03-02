@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-backend
+  labels:
+    app: shopping-cart
+spec:
+  replicas: 3          # <--- THE MAGIC NUMBER: Always keep 3 pods running
+  selector:            # <--- THE GLUE: How the deployment finds its pods
+    matchLabels:
+      app: web-server
+  template:            # <--- THE BLUEPRINT: This is exactly like your Pod YAML
+    metadata:
+      labels:
+        app: web-server
+    spec:
+      containers:
+      - name: nginx-container
+        image: nginx:1.27
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "256Mi"
