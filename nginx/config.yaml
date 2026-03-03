@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-index-html
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+    <body>
+      <h1>KUBOS-TRANAUT LAB 2026</h1>
+      <p>This page is served from a <b>ConfigMap</b>!</p>
+      <p>No Docker build was required to change this text.</p>
+    </body>
+    </html>

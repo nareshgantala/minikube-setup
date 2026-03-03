@@ -17,6 +17,9 @@ spec:
       containers:
       - name: nginx-container
         image: nginx:1.27
+        volumeMounts:
+        - name: html-volume
+          mountPath: /opt
         ports:
         - containerPort: 80
         resources:
@@ -26,3 +29,7 @@ spec:
           limits:
             cpu: "500m"
             memory: "256Mi"
+      volumes:
+      - name: html-volume
+        configMap:
+          name: nginx-index-html
